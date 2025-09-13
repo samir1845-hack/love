@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Do You Love Samir?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://wallpapers.com/images/hd/couple-with-shooting-star-love-anime-4a14n2xzfgrsewk4.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    #container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+
+    input, button {
+      padding: 12px 20px;
+      font-size: 16px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #yesBtn {
+      background-color: #00c853;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #d50000;
+      color: white;
+      position: absolute;
+    }
+
+    #question, #buttons {
+      margin-top: 30px;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    #surprise {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+      padding-top: 100px;
+      z-index: 999;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: pink;
+      animation: fall 3s infinite;
+    }
+
+    @keyframes fall {
+      0% {transform: translateY(0);}
+      100% {transform: translateY(100vh);}
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>What's your name?</h2>
+    <input type="text" id="nameInput" placeholder="Enter your name">
+    <button onclick="askLove()">Submit</button>
+    <div id="question" style="display:none;"></div>
+    <div id="buttons" style="display:none;">
+      <button id="yesBtn" onclick="celebrate()">Yes</button>
+      <button id="noBtn" onmouseover="moveNo()">No</button>
+    </div>
+  </div>
+
+  <div id="surprise">
+    🎉 Surprise Miss <span id="finalName"></span>!<br><br>
+    Samir knew you'd say yes 💖<br><br>
+    You just unlocked a secret message:<br>
+    <em>"Love is not just a feeling, it's a choice—and you chose beautifully."</em>
+  </div>
+
+  <script>
+    function askLove() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (!name) {
+        alert("Please enter your name!");
+        return;
+      }
+      document.getElementById("question").innerText = `Do you love Samir, Miss ${name}?`;
+      document.getElementById("question").style.display = "block";
+      document.getElementById("buttons").style.display = "block";
+      document.getElementById("finalName").innerText = name;
+    }
+
+    function moveNo() {
+      const noBtn = document.getElementById("noBtn");
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    function celebrate() {
+      document.getElementById("container").style.display = "none";
+      document.getElementById("surprise").style.display = "block";
+
+      // Confetti animation
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = "-10px";
+        confetti.style.backgroundColor = getRandomColor();
+        document.body.appendChild(confetti);
+      }
+    }
+
+    function getRandomColor() {
+      const colors = ["#ff4081", "#f50057", "#e91e63", "#ff80ab", "#ffc1e3"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
